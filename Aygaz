@@ -1,0 +1,70 @@
+import random
+
+def tas_kagit_makas_EGE_CAN_OLCA():
+    print("Taş, Kağıt, Makas Oyununa Hoş Geldiniz!")
+    print("Oyunu oynamak için 'tas', 'kagit' veya 'makas' seçeneklerinden birini yazın.")
+    print("Oyundan çıkmak için 'q' yazabilirsiniz.\n")
+
+    # Taş, Kağıt, Makas seçenekleri
+    secenekler = ["tas", "kagit", "makas"]
+
+    # Oyun sayaçları
+    oyuncu_galibiyetleri = 0
+    bilgisayar_galibiyetleri = 0
+    oyun_sayisi = 0
+
+    while True:
+        oyun_sayisi += 1
+        print(f"\nOyun {oyun_sayisi} başlıyor!")
+
+        oyuncu_tur_galibiyetleri = 0
+        bilgisayar_tur_galibiyetleri = 0
+        tur_sayisi = 0
+
+        while oyuncu_tur_galibiyetleri < 2 and bilgisayar_tur_galibiyetleri < 2:
+            tur_sayisi += 1
+            print(f"\nTur {tur_sayisi}")
+
+            oyuncu_secimi = input("Lütfen seçiminizi yapın (tas/kagit/makas): ").lower()
+
+            if oyuncu_secimi == "q":
+                print("Oyundan çıkılıyor...")
+                return
+
+            if oyuncu_secimi not in secenekler:
+                print("Geçersiz seçim, lütfen tekrar deneyin.")
+                continue
+
+            bilgisayar_secimi = random.choice(secenekler)
+            print(f"Bilgisayarın seçimi: {bilgisayar_secimi}")
+
+            if oyuncu_secimi == bilgisayar_secimi:
+                print("Bu tur berabere!")
+            elif (oyuncu_secimi == "tas" and bilgisayar_secimi == "makas") or \
+                 (oyuncu_secimi == "kagit" and bilgisayar_secimi == "tas") or \
+                 (oyuncu_secimi == "makas" and bilgisayar_secimi == "kagit"):
+                print("Bu turu kazandınız!")
+                oyuncu_tur_galibiyetleri += 1
+            else:
+                print("Bu turu bilgisayar kazandı!")
+                bilgisayar_tur_galibiyetleri += 1
+
+        if oyuncu_tur_galibiyetleri == 2:
+            print("\nTebrikler! Oyunu kazandınız!")
+            oyuncu_galibiyetleri += 1
+        else:
+            print("\nBilgisayar oyunu kazandı!")
+            bilgisayar_galibiyetleri += 1
+
+        devam_oyuncu = input("\nBaşka bir oyun oynamak ister misiniz? (e/h): ").lower()
+        devam_bilgisayar = random.choice(["e", "h"])
+        print(f"Bilgisayarın devam kararı: {'Evet' if devam_bilgisayar == 'e' else 'Hayır'}")
+
+        if devam_oyuncu == "e" and devam_bilgisayar == "e":
+            print("Oyun devam ediyor...")
+        else:
+            print("Oyun sona erdi. Teşekkürler!")
+            break
+
+tas_kagit_makas_EGE_CAN_OLCA()
+
